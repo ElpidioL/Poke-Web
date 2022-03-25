@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import classes from "./IndexPage.module.css";
-import { Connect,Colour, PokeApi } from "../Api/socketConnection";
+import { Colour,PokemonNew } from "../Defaults/classes"
+import { Connect,Send } from "../Api/socketConnection";
 import { GetEmail, GetColour, GetCredits, GetInfo, GetUpdate } from "../scripts/getCookies";
 
-class PokemonNew {
-  constructor(pokemon, pokeId, hatchDate) {
-    this.pokemon = pokemon
-    this.pokeId = pokeId
-    this.hatchDate = hatchDate
-  }
-}
-
 function GetPokemon(){
+/*   let a = `{"pokemons": [], "toHatch": {"10": 20}}`
+  let b = JSON.parse(a)
+  let c = Object.keys(b.toHatch);
+  console.log(typeof( c[0])) */
   let pokemon = new PokemonNew();
   let credits = GetCredits();
   if(credits >= 0){
@@ -27,8 +24,8 @@ function GetPokemon(){
         .then(data3 => {
           pokemon.pokemon = data2.results[0].name
           pokemon.pokeId = data3.id
-          pokemon.hatchDate = "date"
-          PokeApi(pokemon);
+          pokemon.intent = "pokemon"
+          Send(pokemon);
         });
       });
     });
@@ -61,7 +58,8 @@ function IndexPage(){
   useEffect(() => {
     function LoadConfig() {
       Connect();
-      Colour(GetColour(), GetEmail());
+      let colour = new Colour(GetColour(), GetEmail(), "colour")
+      Send(colour);
     }
     setTimeout(LoadConfig, 50);
     const timer = setTimeout(() => {

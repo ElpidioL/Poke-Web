@@ -1,5 +1,8 @@
 package IntentHandler
 
+/////seria interessante se eu fizesse as verificações corretas para ter certeza que as infos que vieram
+///// possuem as propriedades certas do intent, visto que o intent fica no front end e pode ser alterado.
+
 import (
 	"encoding/json"
 	"fmt"
@@ -66,7 +69,8 @@ func Intentions(choice []byte) string {
 		}
 	}
 	if Intents.Intent == "pokemon" {
-		fmt.Println(choice)
+		fmt.Println(string(choice))
+
 		return `{"intent":"success", "msg":"sucess"}`
 	}
 	return `{"intent":"error", "msg":"Not in a if"}`
