@@ -3,7 +3,6 @@ import classes from "./IndexPage.module.css";
 import { Connect,Colour, PokeApi } from "../Api/socketConnection";
 import { GetEmail, GetColour, GetCredits, GetInfo, GetUpdate } from "../scripts/getCookies";
 
-
 class PokemonNew {
   constructor(pokemon, pokeId, hatchDate) {
     this.pokemon = pokemon
@@ -70,8 +69,10 @@ function IndexPage(){
       setCredits(GetCredits());
       setInfo(GetInfo());
       setLastUpdate(GetUpdate());
-      setIsLoading(false)
-    }, 500);
+      if(GetEmail() !== ""){
+        setIsLoading(false)
+      }
+    }, 800);
     return () => {clearTimeout(timer);}
   }, []);
 
@@ -84,15 +85,16 @@ function IndexPage(){
         </div>
         )
     }else{
-      return (
-        <div className={classes.IndexPage}>
-            <h1>Hello {GetEmail()}</h1>
-            <p>Credits: {credits}, <br/> Info: {info},  <br/> Last update: {lastUpdate}</p>
-            <button onClick={() => {GetPokemon()}}>poke</button>
-        </div>
-      )
-    }
-}
+        return (
+          <div className={classes.IndexPage}>
+              <h1>Hello {GetEmail()}</h1>
+              <p>Credits: {credits}, <br/> Info: {info},  <br/> Last update: {lastUpdate}</p>
+              <button onClick={() => {GetPokemon()}}>poke</button>
+          </div>
+        )
+      }
+  }
+
 
 export default IndexPage;
 
