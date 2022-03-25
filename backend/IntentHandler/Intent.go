@@ -1,11 +1,15 @@
 package IntentHandler
 
+/////seria interessante se eu fizesse as verificações corretas para ter certeza que as infos que vieram
+///// possuem as propriedades certas do intent, visto que o intent fica no front end e pode ser alterado.
+
 import (
 	"encoding/json"
 	"fmt"
-	DB "server/react/PSDB"
-	pass "server/react/PasswordHandler"
-	Defaults "server/react/Structure"
+
+	DB "github.com/ElpidioL/Poke-Web/PSDB"
+	pass "github.com/ElpidioL/Poke-Web/PasswordHandler"
+	Defaults "github.com/ElpidioL/Poke-Web/Structure"
 )
 
 func Intentions(choice []byte) string {
@@ -51,11 +55,11 @@ func Intentions(choice []byte) string {
 		if Intents.Intent == "login" {
 			token, err := pass.CreateToken()
 			if err != nil {
-				return fmt.Sprintf(`{"intent":"error", "msg":"Fail to create Colour"}`)
+				return `{"intent":"error", "msg":"Fail to create Colour"}`
 			}
 			hashToken, err := pass.SmallHash(token)
 			if err != nil {
-				return fmt.Sprintf(`{"intent":"error", "msg":"Fail to create HColour"}`)
+				return `{"intent":"error", "msg":"Fail to create HColour"}`
 			}
 			err = DB.LoginUser(registerUser.Email, registerUser.Password, hashToken)
 			if err != nil {
@@ -63,6 +67,11 @@ func Intentions(choice []byte) string {
 			}
 			return fmt.Sprintf(`{"intent":"colour","colour":"%s", "email":"%s"}`, token, registerUser.Email)
 		}
+	}
+	if Intents.Intent == "pokemon" {
+		fmt.Println(string(choice))
+
+		return `{"intent":"success", "msg":"sucess"}`
 	}
 	return `{"intent":"error", "msg":"Not in a if"}`
 }

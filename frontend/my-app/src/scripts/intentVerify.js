@@ -4,6 +4,9 @@ let Intent = (json) => {
     if (json.intent === "error"){
         document.cookie = "Email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "Colour=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; 
+        document.cookie = "Credits=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; 
+        document.cookie = `Info=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        document.cookie = `Last=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
         console.log(json)
         
 

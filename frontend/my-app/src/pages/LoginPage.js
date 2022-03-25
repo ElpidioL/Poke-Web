@@ -1,23 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom'
-import { Connect, Login } from "../Api/socketConnection";
+import { LoginPerson } from "../Defaults/classes"
+import { Connect, Send } from "../Api/socketConnection";
 import { Verify } from "../scripts/passwordVerify";
 import classes from "./LoginPage.module.css";
 import { GetColour, GetEmail } from "../scripts/getCookies";
-import { render } from "react-dom";
-
-class Register {
-  constructor(email, password) {
-    this.email = email 
-    this.password = password
-  }
-}
 
 function LoginPage(){
   const navigate = useNavigate(); 
   const [error, setError] = useState("");
-  let rt = new Register()
-  let inputEl = new Register()
+  let inputEl = new LoginPerson()
   inputEl.email  = useRef(null);
   inputEl.password = useRef(null);
 
@@ -32,11 +24,10 @@ function LoginPage(){
   })
 
   function send(){
-    rt.email = inputEl.email.current.value
-    rt.password  =  inputEl.password.current.value
-    if(Verify(rt.password, rt.email)){
+    let login = new LoginPerson(inputEl.email.current.value,  inputEl.password.current.value, "login" );
+    if(Verify(login.password, login.email)){
       Connect();
-      Login(rt);
+      Send(login);
       setTimeout(Nav, 1100); 
     }else{
       setError(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)

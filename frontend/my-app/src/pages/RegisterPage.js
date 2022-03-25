@@ -1,22 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { Connect, Register } from "../Api/socketConnection";
+import { Connect, Send } from "../Api/socketConnection";
+import {RegisterPerson} from "../Defaults/classes"
 import { Verify } from "../scripts/passwordVerify";
 import { useRef, useState, useEffect } from "react";
 import classes from "./RegisterPage.module.css";
 import {GetColour, GetEmail} from "../scripts/getCookies.js"
 
-class RegisterPerson {
-  constructor(email, name, password) {
-    this.email = email
-    this.name = name 
-    this.password = password
-  }
-}
-
 function RegisterPage(){
   const navigate = useNavigate();
-  const [count, setCount] = useState("");
-  let rt = new RegisterPerson()
+  const [count, setCount] = useState(""); 
   let inputEl = new RegisterPerson()
   inputEl.email  = useRef(null);
   inputEl.name  = useRef(null);
@@ -33,12 +25,11 @@ function RegisterPage(){
 
 
   function send(){
-    rt.email = inputEl.email.current.value
-    rt.name = inputEl.name.current.value
-    rt.password  =  inputEl.password.current.value
-    if(Verify(rt.password, rt.name)){
+    let newRegister = new RegisterPerson(inputEl.email.current.value, inputEl.name.current.value,  inputEl.password.current.value, "register")
+
+    if(Verify(newRegister.password, newRegister.name)){
       Connect();
-      Register(rt);
+      Send(newRegister);
       setCount(<p className={classes.sucess}>Successfully registered</p>)
 
       navigate("../", { replace: true });

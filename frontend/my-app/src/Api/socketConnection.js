@@ -1,11 +1,5 @@
 import { Intent } from "../scripts/intentVerify.js";
 // api/index.js
-class SocketSend {
-  constructor(intent, msg) {
-    this.intent = intent 
-    this.msg = msg
-  }
-}
 var socket = new WebSocket("ws://localhost:8080/ws");
 
 let Connect = () => {
@@ -29,20 +23,7 @@ let Connect = () => {
   };  
 };
 
-let Register = (info) => {
-  info.intent = "register"
+let Send =(info) =>{
   socket.send(JSON.stringify(info));
-};
-let Login = (info) => {
-  info.intent = "login"
-  socket.send(JSON.stringify(info));
-};
-let Colour = (colour, email) => {
-  let infoSend = new SocketSend
-  infoSend.intent = "colour"
-  infoSend.colour = colour
-  infoSend.email = email
-  socket.send(JSON.stringify(infoSend));
-};
-
-export { Connect, Register, Login, Colour };
+}
+export { Connect, Send };

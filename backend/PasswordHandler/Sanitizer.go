@@ -3,8 +3,9 @@ package PasswordHandler
 import (
 	"errors"
 	"net/mail"
-	Defaults "server/react/Structure"
 	"strings"
+
+	Defaults "github.com/ElpidioL/Poke-Web/Structure"
 )
 
 func CheckPassword(password string) error {
