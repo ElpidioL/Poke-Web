@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	intent "server/react/IntentHandler"
+
+	intent "github.com/ElpidioL/Poke-Web/IntentHandler"
 
 	"github.com/gorilla/websocket"
 )

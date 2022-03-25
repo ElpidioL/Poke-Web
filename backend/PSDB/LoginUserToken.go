@@ -4,7 +4,8 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	sanitizer "server/react/PasswordHandler"
+
+	sanitizer "github.com/ElpidioL/Poke-Web/PasswordHandler"
 )
 
 func LoginUserToken(token string, email string) (string, error) {

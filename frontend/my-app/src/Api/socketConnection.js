@@ -45,4 +45,9 @@ let Colour = (colour, email) => {
   socket.send(JSON.stringify(infoSend));
 };
 
-export { Connect, Register, Login, Colour };
+let PokeApi = (pokemon) => {
+  pokemon.intent = "pokemon"
+  socket.send(JSON.stringify(pokemon));
+}
+
+export { Connect, Register, Login, Colour, PokeApi };
