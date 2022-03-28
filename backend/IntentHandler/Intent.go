@@ -5,12 +5,17 @@ package IntentHandler
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"strings"
 
 	DB "github.com/ElpidioL/Poke-Web/PSDB"
 	pass "github.com/ElpidioL/Poke-Web/PasswordHandler"
 	Defaults "github.com/ElpidioL/Poke-Web/Structure"
+	"github.com/rs/xid"
 )
+
+var UserInfo Defaults.UserInfo
 
 func Intentions(choice []byte) string {
 	Intents := Defaults.IntentDefine{}
@@ -30,6 +35,12 @@ func Intentions(choice []byte) string {
 		if err != nil {
 			return `{"intent":"error", "msg":"Fail to Colour"}`
 		}
+
+		vl, err := SaveInfo(info)
+		if err != nil {
+			return `{"intent":"error", "msg":"Fail to HandShake"}`
+		}
+		UserInfo = vl
 		return info
 	}
 
@@ -82,4 +93,23 @@ func Intentions(choice []byte) string {
 	}
 
 	return `{"intent":"error", "msg":"Not in a if"}`
+}
+
+func SaveInfo(msg string) (Defaults.UserInfo, error) {
+	info := Defaults.UserInfo{}
+	err := json.Unmarshal([]byte(string(msg)), &info)
+	info.Session = xid.New().Bytes()
+	if err != nil {
+		return info, fmt.Errorf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+		//return info, fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+	}
+	return info, nil
+}
+
+func CompareSessions(session []byte) error {
+	x := strings.Compare(string(session), string(UserInfo.Session))
+	if x == 0 {
+		return nil
+	}
+	return errors.New("wrong sessions")
 }

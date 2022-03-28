@@ -27,3 +27,12 @@ type Pokemon struct {
 		Email  string `json:"email"`
 	}
 }
+
+type UserInfo struct {
+	Intent  string `json:"intent"`
+	Credits string `json:"credits"`
+	Info    string `json:"info"`
+	Last    string `json:"lnfo"`
+	Id      int
+	Session []byte
+}
