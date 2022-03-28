@@ -29,7 +29,7 @@ function RegisterPage(){
 
     if(Verify(newRegister.password, newRegister.name)){
       Connect();
-      Send(newRegister);
+      Send(newRegister, "");
       setCount(<p className={classes.sucess}>Successfully registered</p>)
 
       navigate("../", { replace: true });

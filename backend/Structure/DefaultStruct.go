@@ -17,3 +17,13 @@ type TokenAcess struct {
 	Colour string `json:"colour"`
 	Email  string `json:"email"`
 }
+type Pokemon struct {
+	Pokemon   string `json:"pokemon"`
+	PokeId    int    `json:"pokeId"`
+	Intent    string `json:"intent"`
+	Handshake struct {
+		Intent string `json:"intent"`
+		Colour string `json:"colour"`
+		Email  string `json:"email"`
+	}
+}

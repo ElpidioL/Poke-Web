@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import classes from "./IndexPage.module.css";
-import { Colour,PokemonNew } from "../Defaults/classes"
+import { PokemonNew, Handshake } from "../Defaults/classes"
 import { Connect,Send } from "../Api/socketConnection";
-import { GetEmail, GetColour, GetCredits, GetInfo, GetUpdate } from "../scripts/getCookies";
+import { GetEmail, GetCredits, GetInfo, GetUpdate } from "../scripts/getCookies";
 
 function GetPokemon(){
 /*   let a = `{"pokemons": [], "toHatch": {"10": 20}}`
@@ -25,7 +25,8 @@ function GetPokemon(){
           pokemon.pokemon = data2.results[0].name
           pokemon.pokeId = data3.id
           pokemon.intent = "pokemon"
-          Send(pokemon);
+          console.log(pokemon)
+          Send(pokemon, Handshake());
         });
       });
     });
@@ -57,22 +58,20 @@ function IndexPage(){
 
   useEffect(() => {
     function LoadConfig() {
+      console.log(isLoading)
       Connect();
-      let colour = new Colour(GetColour(), GetEmail(), "colour")
-      Send(colour);
+      //let colour = new Colour(GetColour(), GetEmail(), "colour")
+      Send(Handshake(), "");
     }
     setTimeout(LoadConfig, 50);
     const timer = setTimeout(() => {
-      setIsLoading(true)
       setCredits(GetCredits());
       setInfo(GetInfo());
       setLastUpdate(GetUpdate());
-      if(GetEmail() !== ""){
-        setIsLoading(false)
-      }
+      setIsLoading(false)
     }, 800);
     return () => {clearTimeout(timer);}
-  }, []);
+  }, [isLoading]);
 
 
     if(isLoading){
@@ -83,6 +82,7 @@ function IndexPage(){
         </div>
         )
     }else{
+      if(credits && GetEmail()){
         return (
           <div className={classes.IndexPage}>
               <h1>Hello {GetEmail()}</h1>
@@ -90,6 +90,9 @@ function IndexPage(){
               <button onClick={() => {GetPokemon()}}>poke</button>
           </div>
         )
+      }else{
+        setIsLoading(true)
+      }
       }
   }
 

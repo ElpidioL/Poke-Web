@@ -16,7 +16,7 @@ func Intentions(choice []byte) string {
 	Intents := Defaults.IntentDefine{}
 	err := json.Unmarshal([]byte(string(choice)), &Intents)
 	if err != nil {
-		return `{"intent":"error", "msg":"Fail to parse JSON"}`
+		return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
 	}
 
 	if Intents.Intent == "colour" {
@@ -24,7 +24,7 @@ func Intentions(choice []byte) string {
 		LoginToken := Defaults.TokenAcess{}
 		err = json.Unmarshal([]byte(string(choice)), &LoginToken)
 		if err != nil {
-			return `{"intent":"error", "msg":"Fail to parse JSON"}`
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
 		}
 		info, err := DB.LoginUserToken(LoginToken.Colour, LoginToken.Email)
 		if err != nil {
@@ -37,7 +37,7 @@ func Intentions(choice []byte) string {
 		registerUser := Defaults.Register{}
 		err = json.Unmarshal([]byte(string(choice)), &registerUser)
 		if err != nil {
-			return `{"intent":"error", "msg":"Fail to parse JSON"}`
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
 		}
 		registerUser, err = pass.Sanitizer(registerUser)
 		if err != nil {
@@ -69,9 +69,17 @@ func Intentions(choice []byte) string {
 		}
 	}
 	if Intents.Intent == "pokemon" {
-		fmt.Println(string(choice))
+
+		NewPokemon := Defaults.Pokemon{}
+		err = json.Unmarshal([]byte(string(choice)), &NewPokemon)
+		if err != nil {
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+		}
+
+		//fmt.Println(NewPokemon.Handshake.Colour)
 
 		return `{"intent":"success", "msg":"sucess"}`
 	}
+
 	return `{"intent":"error", "msg":"Not in a if"}`
 }
