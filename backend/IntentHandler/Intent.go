@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"strings"
 
+	Defaults "github.com/ElpidioL/Poke-Web/Defaults"
 	DB "github.com/ElpidioL/Poke-Web/PSDB"
 	pass "github.com/ElpidioL/Poke-Web/PasswordHandler"
-	Defaults "github.com/ElpidioL/Poke-Web/Structure"
 	"github.com/rs/xid"
 )
 
@@ -80,17 +80,19 @@ func Intentions(choice []byte) string {
 		}
 	}
 	if Intents.Intent == "pokemon" {
+		if UserInfo.Credits > PokemonPrice {
 
-		NewPokemon := Defaults.Pokemon{}
-		err = json.Unmarshal([]byte(string(choice)), &NewPokemon)
-		if err != nil {
-			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+			NewPokemon := Defaults.Pokemon{}
+			err = json.Unmarshal([]byte(string(choice)), &NewPokemon)
+			if err != nil {
+				return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+			}
+
+			fmt.Println(NewPokemon.Session)
+			fmt.Println(UserInfo.Session)
+
+			return `{"intent":"success", "msg":"sucess"}`
 		}
-
-		fmt.Println(NewPokemon.Session)
-		fmt.Println(UserInfo.Session)
-
-		return `{"intent":"success", "msg":"sucess"}`
 	}
 
 	return `{"intent":"error", "msg":"Not in a if"}`

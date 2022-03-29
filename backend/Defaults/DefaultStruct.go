@@ -1,4 +1,4 @@
-package structure
+package Defaults
 
 type Register struct {
 	Email    string `json:"email"`

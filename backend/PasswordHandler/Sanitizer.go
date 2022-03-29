@@ -5,7 +5,7 @@ import (
 	"net/mail"
 	"strings"
 
-	Defaults "github.com/ElpidioL/Poke-Web/Structure"
+	Structure "github.com/ElpidioL/Poke-Web/Defaults"
 )
 
 func CheckPassword(password string) error {
@@ -32,7 +32,7 @@ func CheckName(name string) error {
 	return nil
 }
 
-func Sanitizer(registerUser Defaults.Register) (Defaults.Register, error) {
+func Sanitizer(registerUser Structure.Register) (Structure.Register, error) {
 
 	//basic verifications.
 	if registerUser.Intent == "register" {
