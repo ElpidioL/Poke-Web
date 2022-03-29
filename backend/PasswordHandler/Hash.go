@@ -17,7 +17,7 @@ func SmallHash(password string) (string, error) {
 func CheckHash(password string, hash string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	if err != nil {
-		return errors.New("Password Invalid.")
+		return errors.New("password Invalid")
 	}
 	return err
 }

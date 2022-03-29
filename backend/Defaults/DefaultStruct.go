@@ -32,3 +32,13 @@ type UserInfo struct {
 	DbId    int     `json:"dbId"`
 	Session string
 }
+
+type PokeToHatch struct {
+	PokeId   []int
+	PokeDate []string
+}
+
+type PokeList struct {
+	Poke        []int
+	PokeToHatch PokeToHatch
+}
