@@ -1,3 +1,5 @@
+import { GetEmail, GetColour, GetCredits, GetInfo, GetUpdate } from "../scripts/getCookies";
+
 class LoginPerson {
     constructor(email, password, intent) {
         this.email = email 
@@ -14,6 +16,15 @@ class RegisterPerson {
     }
 }
 
+class Colour {
+    constructor(colour, email, intent){
+        this.colour = colour
+        this.email = email
+        this.intent = intent
+    }
+}
+
+
 class PokemonNew {
     constructor(pokemon, pokeId, hatchDate, intent) {
       this.pokemon = pokemon
@@ -22,11 +33,5 @@ class PokemonNew {
     }
 }
 
-class Colour {
-    constructor(colour, email, intent){
-        this.colour = colour
-        this.email = email
-        this.intent = intent
-    }
-}
+
 export { LoginPerson, RegisterPerson, Colour ,PokemonNew};

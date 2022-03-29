@@ -32,7 +32,7 @@ func LoginUserToken(token string, email string) (string, error) {
 
 	switch err {
 	case sql.ErrNoRows:
-		return "", errors.New("Invalid token.")
+		return "", errors.New("invalid token")
 	case nil:
 		err := sanitizer.CheckHash(token, dbToken)
 		if err != nil {
@@ -40,15 +40,15 @@ func LoginUserToken(token string, email string) (string, error) {
 		}
 		sqlStatement := `SELECT credits, user_info, last_update FROM users_info WHERE id = $1`
 		row := db.QueryRow(sqlStatement, dbId)
-		var dbcredits string
+		var dbcredits float32
 		var dbinfo string
 		var last string
 		err = row.Scan(&dbcredits, &dbinfo, &last)
 		switch err {
 		case sql.ErrNoRows:
-			return "", errors.New("Something went really wrong.")
+			return "", errors.New("something went really wrong")
 		case nil:
-			return fmt.Sprintf(`{"intent":"setInfo","credits":"%s", "info":"%s", "last":"%s"}`, dbcredits, dbinfo, last), nil
+			return fmt.Sprintf(`{"intent":"setInfo","credits":%v, "info":"%s", "last":"%s", "dbId":%v}`, dbcredits, dbinfo, last, dbId), nil
 		default:
 			panic(err)
 		}

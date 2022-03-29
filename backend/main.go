@@ -27,6 +27,7 @@ var upgrader = websocket.Upgrader{
 // new messages being sent to our WebSocket
 // endpoint
 func reader(conn *websocket.Conn) {
+	//var cake string
 	for {
 		// read in a message
 		_, ReciMsg, err := conn.ReadMessage()
@@ -35,7 +36,6 @@ func reader(conn *websocket.Conn) {
 			return
 		}
 		msg := intent.Intentions(ReciMsg)
-
 		if err := conn.WriteMessage(1, []byte(msg)); err != nil {
 			log.Println(err)
 			return

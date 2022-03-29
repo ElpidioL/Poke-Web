@@ -27,7 +27,7 @@ function LoginPage(){
     let login = new LoginPerson(inputEl.email.current.value,  inputEl.password.current.value, "login" );
     if(Verify(login.password, login.email)){
       Connect();
-      Send(login);
+      Send(login, "");
       setTimeout(Nav, 1100); 
     }else{
       setError(<p className={classes.error}>Weak Password or Login, Password should be at least 8 characters long</p>)

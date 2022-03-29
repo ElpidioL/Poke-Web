@@ -53,3 +53,14 @@ export function GetUpdate(){
         }
     }
 }
+export function GetSession(){
+    let value = document.cookie.split(/[= ]+/);
+    for (let i = 0; i < value.length; i++){
+        if (value[i] === `Session`){
+            if(value[i+1] === ";"){
+                return " "
+            }
+            return value[i+1].replace(";","")
+        }
+    }
+}

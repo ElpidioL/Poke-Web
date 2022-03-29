@@ -1,4 +1,5 @@
 import { Intent } from "../scripts/intentVerify.js";
+import { Handshake } from "../Defaults/classes"
 // api/index.js
 var socket = new WebSocket("ws://localhost:8080/ws");
 
@@ -23,7 +24,8 @@ let Connect = () => {
   };  
 };
 
-let Send =(info) =>{
+let Send =(info, session) =>{
+  session ? info.session = session : session = ""
   socket.send(JSON.stringify(info));
 }
 export { Connect, Send };
