@@ -20,9 +20,11 @@ let Intent = (json) => {
         document.cookie = `Email=${json.email}; expires=${expireDate}`;
 
     }else if(json.intent === "setInfo"){
+        console.log("a")
         document.cookie = `Credits=${json.credits}`;
         document.cookie = `Info=${json.info}`;
         document.cookie = `Last=${json.last}`;
+        document.cookie = `Session=${json.session}`
     } 
 }
 

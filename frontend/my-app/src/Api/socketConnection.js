@@ -24,8 +24,8 @@ let Connect = () => {
   };  
 };
 
-let Send =(info, handshake) =>{
-  handshake ? info.handshake = handshake : handshake = ""
+let Send =(info, session) =>{
+  session ? info.session = session : session = ""
   socket.send(JSON.stringify(info));
 }
 export { Connect, Send };

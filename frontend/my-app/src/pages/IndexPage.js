@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import classes from "./IndexPage.module.css";
-import { PokemonNew, Handshake } from "../Defaults/classes"
+import { PokemonNew, Colour } from "../Defaults/classes"
 import { Connect,Send } from "../Api/socketConnection";
-import { GetEmail, GetCredits, GetInfo, GetUpdate } from "../scripts/getCookies";
+import { GetEmail, GetCredits, GetInfo, GetUpdate, GetSession, GetColour } from "../scripts/getCookies";
 
 function GetPokemon(){
 /*   let a = `{"pokemons": [], "toHatch": {"10": 20}}`
@@ -26,7 +26,8 @@ function GetPokemon(){
           pokemon.pokeId = data3.id
           pokemon.intent = "pokemon"
           console.log(pokemon)
-          Send(pokemon, Handshake());
+          console.log(GetSession())
+          Send(pokemon, GetSession());
         });
       });
     });
@@ -60,8 +61,7 @@ function IndexPage(){
     function LoadConfig() {
       console.log(isLoading)
       Connect();
-      //let colour = new Colour(GetColour(), GetEmail(), "colour")
-      Send(Handshake(), "");
+      Send(new Colour(GetColour(), GetEmail(), "colour"), "");
     }
     setTimeout(LoadConfig, 50);
     const timer = setTimeout(() => {

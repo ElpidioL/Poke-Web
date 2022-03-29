@@ -33,9 +33,5 @@ class PokemonNew {
     }
 }
 
-function Handshake(){
-    let auth = new Colour(GetColour(), GetEmail(), "colour")
-    return auth
-}
 
-export { LoginPerson, RegisterPerson, Colour ,PokemonNew, Handshake};
+export { LoginPerson, RegisterPerson, Colour ,PokemonNew};

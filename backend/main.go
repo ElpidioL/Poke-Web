@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 
 	intent "github.com/ElpidioL/Poke-Web/IntentHandler"
 
@@ -37,15 +36,6 @@ func reader(conn *websocket.Conn) {
 			return
 		}
 		msg := intent.Intentions(ReciMsg)
-		if strings.Contains(msg, "setInfo") {
-			x, err := intent.SaveInfo(msg)
-			if err != nil {
-				fmt.Println(err, x)
-				panic(err)
-			}
-			//cake = x
-		}
-		//fmt.Println(cake)
 		if err := conn.WriteMessage(1, []byte(msg)); err != nil {
 			log.Println(err)
 			return
