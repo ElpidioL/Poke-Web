@@ -38,9 +38,12 @@ func Intentions(choice []byte) string {
 
 		vl, err := SaveInfo(info)
 		if err != nil {
-			return `{"intent":"error", "msg":"Fail to HandShake"}`
+			fmt.Println(err)
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to HandShake"}`, err.Error())
 		}
 		UserInfo = vl
+		fmt.Println(info, "info")
+		fmt.Println(UserInfo, "vl")
 		return info
 	}
 

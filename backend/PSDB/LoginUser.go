@@ -36,7 +36,7 @@ func LoginUser(email string, password string, hashToken string) error {
 
 	switch err {
 	case sql.ErrNoRows:
-		return errors.New("Email or Password invalid")
+		return errors.New("email or Password invalid")
 	case nil:
 		err := sanitizer.CheckHash(password, dbPass)
 		if err != nil {
@@ -55,7 +55,7 @@ func LoginUser(email string, password string, hashToken string) error {
 
 			_, err = db.Exec(sqlStatement, dbId, email, hashToken, expireDate)
 			if err != nil {
-				return errors.New("Error to register token.")
+				return errors.New("error to register token")
 				//panic(err)
 			}
 		case nil:
@@ -64,7 +64,7 @@ func LoginUser(email string, password string, hashToken string) error {
 					WHERE email = $1;`
 			_, err = db.Exec(sqlStatement, email)
 			if err != nil {
-				return errors.New("Error to delete old token.")
+				return errors.New("error to delete old token")
 			}
 			sqlStatement = `
 					INSERT INTO login_token (id, email, token, expire_date)
@@ -72,7 +72,7 @@ func LoginUser(email string, password string, hashToken string) error {
 
 			_, err = db.Exec(sqlStatement, dbId, email, hashToken, expireDate)
 			if err != nil {
-				return errors.New("Error to register token.")
+				return errors.New("error to register token")
 				//panic(err)
 			}
 		default:

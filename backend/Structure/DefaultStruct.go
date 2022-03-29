@@ -32,7 +32,7 @@ type UserInfo struct {
 	Intent  string `json:"intent"`
 	Credits string `json:"credits"`
 	Info    string `json:"info"`
-	Last    string `json:"lnfo"`
-	Id      int
+	Last    string `json:"last"`
+	DbId    string `json:"dbId"`
 	Session []byte
 }

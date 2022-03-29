@@ -48,7 +48,7 @@ func UserRegister(email string, name string, password string) error {
 		id := 0
 		err := db.QueryRow(sqlStatement, email, name, password, today, false).Scan(&id)
 		if err != nil {
-			return errors.New("Error to register user.")
+			return errors.New("error to register user")
 			//panic(err)
 		}
 
@@ -59,7 +59,7 @@ func UserRegister(email string, name string, password string) error {
 		_, err = db.Exec(sqlStatement, id, 0, "Empty", today)
 
 		if err != nil {
-			return errors.New("Error to register user information. ")
+			return errors.New("error to register user information")
 			//panic(err)
 		}
 
@@ -69,13 +69,13 @@ func UserRegister(email string, name string, password string) error {
 
 		_, err = db.Exec(sqlStatement, email, "x", expireDate)
 		if err != nil {
-			return errors.New("Error to register user verify link.")
+			return errors.New("error to register user verify link")
 			//panic(err)
 		}
 		return nil
 
 	case nil:
-		return errors.New("Email already exist.")
+		return errors.New("email already exist")
 
 	default:
 		panic(err)
