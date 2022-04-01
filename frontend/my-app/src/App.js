@@ -6,9 +6,7 @@ import IndexPage from './pages/IndexPage';
 import { PrivateRoute } from './PrivateRoute.js';
 
 function App() {
-
   return (
-   
       <Routes>
        <Route path="/" element={
             <PrivateRoute>

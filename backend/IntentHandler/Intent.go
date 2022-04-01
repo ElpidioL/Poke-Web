@@ -21,7 +21,7 @@ func Intentions(choice []byte) string {
 	Intents := Defaults.IntentDefine{}
 	err := json.Unmarshal([]byte(string(choice)), &Intents)
 	if err != nil {
-		return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+		return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON1"}`, err.Error())
 	}
 
 	if Intents.Intent == "colour" {
@@ -29,7 +29,7 @@ func Intentions(choice []byte) string {
 		LoginToken := Defaults.TokenAcess{}
 		err = json.Unmarshal([]byte(string(choice)), &LoginToken)
 		if err != nil {
-			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON2"}`, err.Error())
 		}
 		info, err := DB.LoginUserToken(LoginToken.Colour, LoginToken.Email)
 		if err != nil {
@@ -48,7 +48,7 @@ func Intentions(choice []byte) string {
 		registerUser := Defaults.Register{}
 		err = json.Unmarshal([]byte(string(choice)), &registerUser)
 		if err != nil {
-			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON3"}`, err.Error())
 		}
 		registerUser, err = pass.Sanitizer(registerUser)
 		if err != nil {
@@ -84,7 +84,7 @@ func Intentions(choice []byte) string {
 			NewPokemon := Defaults.Pokemon{}
 			err := json.Unmarshal([]byte(string(choice)), &NewPokemon)
 			if err != nil {
-				return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+				return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON4"}`, err.Error())
 			}
 
 			err = CompareSessions(NewPokemon.Session)
@@ -96,7 +96,6 @@ func Intentions(choice []byte) string {
 			if err != nil {
 				return fmt.Sprintf(`{"intent":"error", "msg":"%s, DB error"}`, err.Error())
 			}
-			Defaults.Tst1()
 			UserInfo.Credits -= Defaults.PokemonPrice
 			fmt.Println(NewPokemon)
 			return `{"intent":"success", "msg":"sucess"}`
@@ -108,13 +107,16 @@ func Intentions(choice []byte) string {
 }
 
 func SaveInfo(msg string) (Defaults.UserInfo, error) {
+	test := strings.SplitAfter(string(msg), "{")
+	test[1] += `"`
+	fmt.Println(test[0], "\n", test[1], "\n", test[2], "\n", test[3])
 	info := Defaults.UserInfo{}
-	err := json.Unmarshal([]byte(string(msg)), &info)
-	info.Session = xid.New().String()
+	err := json.Unmarshal([]byte(string(test[1])), &info)
+	//fmt.Println(string(msg))
 	if err != nil {
-		return info, fmt.Errorf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
-		//return info, fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+		return info, fmt.Errorf(`{"intent":"error", "msg":"%s, fail to Parse JSON5"}`, err.Error())
 	}
+	info.Session = xid.New().String()
 	return info, nil
 }
 

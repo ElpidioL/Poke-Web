@@ -25,11 +25,11 @@ type Pokemon struct {
 }
 
 type UserInfo struct {
-	Intent  string  `json:"intent"`
-	Credits float32 `json:"credits"`
-	Info    string  `json:"info"`
-	Last    string  `json:"last"`
-	DbId    int     `json:"dbId"`
+	Intent  string           `json:"intent"`
+	Credits float32          `json:"credits"`
+	Info    struct{ string } `json:"info"`
+	Last    string           `json:"last"`
+	DbId    int              `json:"dbId"`
 	Session string
 }
 

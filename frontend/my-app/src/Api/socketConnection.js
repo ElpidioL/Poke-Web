@@ -11,7 +11,6 @@ let Connect = () => {
   };
 
    socket.onmessage = msg => {
-    //console.log(JSON.stringify(msg.data).replace(/\\/g, ''))
     Intent(JSON.parse(msg.data.replace(/\\/g, '')))
   }; 
 
