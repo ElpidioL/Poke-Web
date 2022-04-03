@@ -6,6 +6,5 @@ export const PrivateRoute = ({ children}) => {
   if (GetEmail() && GetColour()) {
     return children
   }
-      
   return <Navigate to="/login" />
 }

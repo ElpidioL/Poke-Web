@@ -24,7 +24,6 @@ class Colour {
     }
 }
 
-
 class PokemonNew {
     constructor(pokemon, pokeId, hatchDate, intent) {
       this.pokemon = pokemon
@@ -32,6 +31,5 @@ class PokemonNew {
       this.intent = intent
     }
 }
-
 
 export { LoginPerson, RegisterPerson, Colour ,PokemonNew};

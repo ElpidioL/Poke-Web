@@ -21,7 +21,7 @@ func Intentions(choice []byte) string {
 	Intents := Defaults.IntentDefine{}
 	err := json.Unmarshal([]byte(string(choice)), &Intents)
 	if err != nil {
-		return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+		return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON1"}`, err.Error())
 	}
 
 	if Intents.Intent == "colour" {
@@ -29,7 +29,7 @@ func Intentions(choice []byte) string {
 		LoginToken := Defaults.TokenAcess{}
 		err = json.Unmarshal([]byte(string(choice)), &LoginToken)
 		if err != nil {
-			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON2"}`, err.Error())
 		}
 		info, err := DB.LoginUserToken(LoginToken.Colour, LoginToken.Email)
 		if err != nil {
@@ -48,7 +48,7 @@ func Intentions(choice []byte) string {
 		registerUser := Defaults.Register{}
 		err = json.Unmarshal([]byte(string(choice)), &registerUser)
 		if err != nil {
-			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+			return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON3"}`, err.Error())
 		}
 		registerUser, err = pass.Sanitizer(registerUser)
 		if err != nil {
@@ -80,37 +80,43 @@ func Intentions(choice []byte) string {
 		}
 	}
 	if Intents.Intent == "pokemon" {
-		if UserInfo.Credits > PokemonPrice {
-
+		if UserInfo.Credits > Defaults.PokemonPrice {
 			NewPokemon := Defaults.Pokemon{}
-			err = json.Unmarshal([]byte(string(choice)), &NewPokemon)
+			err := json.Unmarshal([]byte(string(choice)), &NewPokemon)
 			if err != nil {
-				return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+				return fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON4"}`, err.Error())
 			}
 
-			fmt.Println(NewPokemon.Session)
-			fmt.Println(UserInfo.Session)
+			err = CompareSessions(NewPokemon.Session)
+			if err != nil {
+				return fmt.Sprintf(`{"intent":"error", "msg":"%s, wrong session"}`, err.Error())
+			}
 
+			err = DB.UpdateCredits(Defaults.PokemonPrice, UserInfo.DbId, NewPokemon)
+			if err != nil {
+				return fmt.Sprintf(`{"intent":"error", "msg":"%s, DB error"}`, err.Error())
+			}
+			UserInfo.Credits -= Defaults.PokemonPrice
+			fmt.Println(NewPokemon)
 			return `{"intent":"success", "msg":"sucess"}`
 		}
+		return `{"intent":"msg", "msg":"Not enough credits"}`
 	}
 
 	return `{"intent":"error", "msg":"Not in a if"}`
 }
 
-func SaveInfo(msg string) (Defaults.UserInfo, error) {
+func SaveInfo(msg string) (Defaults.UserInfo, error) { // some really ugly things happening here.
 	info := Defaults.UserInfo{}
 	err := json.Unmarshal([]byte(string(msg)), &info)
-	info.Session = xid.New().String()
-	fmt.Println(info.Session)
 	if err != nil {
-		return info, fmt.Errorf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
-		//return info, fmt.Sprintf(`{"intent":"error", "msg":"%s, fail to Parse JSON"}`, err.Error())
+		return info, fmt.Errorf(`{"intent":"error", "msg":"%s, fail to Parse JSON5"}`, err.Error())
 	}
+	info.Session = xid.New().String()
 	return info, nil
 }
 
-func CompareSessions(session []byte) error {
+func CompareSessions(session string) error {
 	x := strings.Compare(string(session), string(UserInfo.Session))
 	if x == 0 {
 		return nil

@@ -1,6 +1,5 @@
 
 let Intent = (json) => {
-
     if (json.intent === "error"){
         document.cookie = "Email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "Colour=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; 
@@ -20,7 +19,13 @@ let Intent = (json) => {
         document.cookie = `Email=${json.email}; expires=${expireDate}`;
 
     }else if(json.intent === "setInfo"){
-        console.log("a")
+        json.info = json.info.replaceAll(" ", ","); json.info = json.info.replaceAll("[", ""); json.info = json.info.replaceAll("]", "");
+        json.info = json.info.split(",")
+        json.info = String.fromCharCode(...json.info);
+        let k = JSON.parse(json.info)
+        console.log(k, "INTENT")
+
+
         document.cookie = `Credits=${json.credits}`;
         document.cookie = `Info=${json.info}`;
         document.cookie = `Last=${json.last}`;

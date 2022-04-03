@@ -48,7 +48,7 @@ func LoginUserToken(token string, email string) (string, error) {
 		case sql.ErrNoRows:
 			return "", errors.New("something went really wrong")
 		case nil:
-			return fmt.Sprintf(`{"intent":"setInfo","credits":%v, "info":"%s", "last":"%s", "dbId":%v}`, dbcredits, dbinfo, last, dbId), nil
+			return fmt.Sprintf(`{"intent":"setInfo","credits":%v, "last":"%s", "dbId":%v, "info":"%v"}`, dbcredits, last, dbId, []byte(dbinfo)), nil
 		default:
 			panic(err)
 		}
