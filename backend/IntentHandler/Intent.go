@@ -107,20 +107,12 @@ func Intentions(choice []byte) string {
 }
 
 func SaveInfo(msg string) (Defaults.UserInfo, error) { // some really ugly things happening here.
-	test := strings.SplitAfter(string(msg), ":")
-	test[11] = strings.Replace()
-	poke := strings.Join(test[7:], " ")
-	test[7] = `"null"}`
-	final := strings.Join(test[:8], " ")
 	info := Defaults.UserInfo{}
-	err := json.Unmarshal([]byte(string(final)), &info)
+	err := json.Unmarshal([]byte(string(msg)), &info)
 	if err != nil {
 		return info, fmt.Errorf(`{"intent":"error", "msg":"%s, fail to Parse JSON5"}`, err.Error())
 	}
 	info.Session = xid.New().String()
-	info.Info = poke[1:]
-	//fmt.Println(poke[1:20])
-	//	fmt.Println(info)
 	return info, nil
 }
 
