@@ -4,6 +4,11 @@ import { PokemonNew, Colour } from "../Defaults/classes"
 import { Connect,Send } from "../Api/socketConnection";
 import { GetEmail, GetCredits, GetInfo, GetUpdate, GetSession, GetColour } from "../scripts/getCookies";
 
+function PokeList(Pokes){
+  let test = JSON.parse(Pokes)
+  console.log(test.PokeToHatch.PokeId[0])
+}
+
 function GetPokemon(){
 /*   let a = `{"pokemons": [], "toHatch": {"10": 20}}`
   let b = JSON.parse(a)
@@ -83,6 +88,7 @@ function IndexPage(){
         )
     }else{
       if(credits && GetEmail()){
+        let x = PokeList(info)
         return (
           <div className={classes.IndexPage}>
               <h1>Hello {GetEmail()}</h1>

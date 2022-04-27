@@ -22,9 +22,6 @@ let Intent = (json) => {
         json.info = json.info.replaceAll(" ", ","); json.info = json.info.replaceAll("[", ""); json.info = json.info.replaceAll("]", "");
         json.info = json.info.split(",")
         json.info = String.fromCharCode(...json.info);
-        let k = JSON.parse(json.info)
-        console.log(k, "INTENT")
-
 
         document.cookie = `Credits=${json.credits}`;
         document.cookie = `Info=${json.info}`;
