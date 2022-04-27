@@ -5,8 +5,24 @@ import { Connect,Send } from "../Api/socketConnection";
 import { GetEmail, GetCredits, GetInfo, GetUpdate, GetSession, GetColour } from "../scripts/getCookies";
 
 function PokeList(Pokes){
+  /* let a = [];
   let test = JSON.parse(Pokes)
-  console.log(test.PokeToHatch.PokeId[0])
+  test.PokeToHatch.PokeId.map((vl, ind) => {
+    fetch('https://pokeapi.co/api/v2/pokemon')
+    .then(response => response.json()).then(data => a.push(new PokemonNew("a","a","a")))
+  })
+ console.log(a) */
+
+/*  fetch('https://api.github.com/users/ElpidioL/events')
+ .then(response => console.log(response.json()))
+ */
+
+ let response = fetch('https://api.github.com/users/ElpidioL/events').then( response =>
+  console.log(response.text())
+ );
+
+/* let text = response.text(); 
+console.log(text) */
 }
 
 function GetPokemon(){
