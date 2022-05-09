@@ -25,10 +25,11 @@ class Colour {
 }
 
 class PokemonNew {
-    constructor(pokemon, pokeId, hatchDate, intent) {
+    constructor(pokemon, pokeId, hatchDate, intent, image) {
       this.pokemon = pokemon
       this.pokeId = pokeId
       this.intent = intent
+      this.image = image
     }
 }
 

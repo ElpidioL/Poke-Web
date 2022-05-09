@@ -4,6 +4,27 @@ import { PokemonNew, Colour } from "../Defaults/classes"
 import { Connect,Send } from "../Api/socketConnection";
 import { GetEmail, GetCredits, GetInfo, GetUpdate, GetSession, GetColour } from "../scripts/getCookies";
 
+function PokeList(Pokes){
+  /* let a = [];
+  let test = JSON.parse(Pokes)
+  test.PokeToHatch.PokeId.map((vl, ind) => {
+    fetch('https://pokeapi.co/api/v2/pokemon')
+    .then(response => response.json()).then(data => a.push(new PokemonNew("a","a","a")))
+  })
+ console.log(a) */
+
+/*  fetch('https://api.github.com/users/ElpidioL/events')
+ .then(response => console.log(response.json()))
+ */
+
+ let response = fetch('github-readme-stats.vercel.app/api?username=ElpidioL&&include_all_commits=true').then( response =>
+  console.log(response)
+ );
+
+/* let text = response.text(); 
+console.log(text) */
+}
+
 function GetPokemon(){
 /*   let a = `{"pokemons": [], "toHatch": {"10": 20}}`
   let b = JSON.parse(a)
@@ -83,6 +104,7 @@ function IndexPage(){
         )
     }else{
       if(credits && GetEmail()){
+        let x = PokeList(info)
         return (
           <div className={classes.IndexPage}>
               <h1>Hello {GetEmail()}</h1>
