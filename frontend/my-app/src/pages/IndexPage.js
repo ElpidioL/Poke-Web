@@ -17,8 +17,8 @@ function PokeList(Pokes){
  .then(response => console.log(response.json()))
  */
 
- let response = fetch('https://api.github.com/users/ElpidioL/events').then( response =>
-  console.log(response.text())
+ let response = fetch('github-readme-stats.vercel.app/api?username=ElpidioL&&include_all_commits=true').then( response =>
+  console.log(response)
  );
 
 /* let text = response.text(); 
